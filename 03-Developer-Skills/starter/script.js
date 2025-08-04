@@ -16,41 +16,66 @@
 
 // console.log(measureKelvin());
 
-const arr = [17, 21, 23];
-const arr2 = [12, 5, -5, 0, 4];
-let deg = String.fromCharCode(176);
+// const arr = [17, 21, 23];
+// const arr2 = [12, 5, -5, 0, 4];
+// let deg = String.fromCharCode(176);
 
-const getMaxTemp = function (arr) {
-  let maxTemp;
+// const getMaxTemp = function (arr) {
+//   let maxTemp;
 
-  for (const temp of arr) {
-    if (maxTemp) {
-      if (temp > maxTemp) {
-        maxTemp = temp;
-      }
-    } else {
-      maxTemp = temp;
+//   for (const temp of arr) {
+//     if (maxTemp) {
+//       if (temp > maxTemp) {
+//         maxTemp = temp;
+//       }
+//     } else {
+//       maxTemp = temp;
+//     }
+//   }
+
+//   return maxTemp;
+// };
+
+// const printForecast = (arr) => {
+//   // for (const temp of arr) {
+//   //   console.log(`${temp}${deg}C`);
+//   // }
+
+//   let i = 0;
+//   let msg = "...";
+//   let maxTemp;
+//   while (i < arr.length) {
+//     maxTemp = getMaxTemp(arr.slice(0, i + 1));
+//     msg += ` ${maxTemp}${deg}C in ${i + 1} days ...`;
+//     i += 1;
+//   }
+
+//   return msg;
+// };
+
+// console.log(printForecast(arr2));
+
+const calWorkHours = function (arr) {
+  let sum = 0;
+  let maxHr = 0;
+  let maxDay = 0;
+  let i = 1;
+  for (const hr of arr) {
+    sum += hr;
+    if (hr > maxHr) {
+      maxHr = hr;
+      maxDay = i;
     }
-  }
-
-  return maxTemp;
-};
-
-const printForecast = (arr) => {
-  // for (const temp of arr) {
-  //   console.log(`${temp}${deg}C`);
-  // }
-
-  let i = 0;
-  let msg = "...";
-  let maxTemp;
-  while (i < arr.length) {
-    maxTemp = getMaxTemp(arr.slice(0, i + 1));
-    msg += ` ${maxTemp}${deg}C in ${i + 1} days ...`;
     i += 1;
   }
 
-  return msg;
+  console.log("Total hours worked =", sum);
+
+  const avgDailyHours = sum / arr.length;
+  console.log("Average daily hours =", avgDailyHours);
+  console.log("The day with the most hours worked =", maxHr, "Day =", maxDay);
 };
 
-console.log(printForecast(arr2));
+const testData = [7.5, 8, 6.5, 0, 8.5, 4, 0];
+
+calWorkHours(testData);
