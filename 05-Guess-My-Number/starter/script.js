@@ -19,21 +19,19 @@ document.querySelector('.check').addEventListener('click', function () {
       if (guess === number) {
         document.querySelector('.message').textContent =
           '🎉🎉🎉 Correct Number!';
+
+        document.querySelector('body').style.backgroundColor = '#60b347';
+        document.querySelector('.number').style.width = '30rem';
         document.querySelector('.number').textContent = number;
         document.querySelector('.score').textContent = i;
-        highScore = Number(document.querySelector('.highscore').textContent);
-        if (!highScore) {
+
+        if (i > highScore) {
+          highScore = i;
           document.querySelector('.highscore').textContent = i;
-        } else {
-          if (i > highScore) {
-            document.querySelector('.highscore').textContent = i;
-          }
         }
-      } else if (guess > number) {
-        document.querySelector('.message').textContent = '🐘 Too big!';
-        i -= 1;
       } else {
-        document.querySelector('.message').textContent = '🐭 Too small!';
+        document.querySelector('.message').textContent =
+          guess > number ? '🐘 Too big!' : '🐭 Too low!';
         i -= 1;
       }
     }
@@ -41,15 +39,18 @@ document.querySelector('.check').addEventListener('click', function () {
     if (document.querySelector('.score').textContent == 0) {
       document.querySelector('.message').textContent = '💀 Game Over...';
       document.querySelector('.number').textContent = number;
+      document.querySelector('body').style.backgroundColor = 'red';
     }
   }
 });
 
 document.querySelector('.again').addEventListener('click', function () {
+  document.querySelector('.number').style.width = '15rem';
   document.querySelector('.message').textContent = 'Start guessing...';
   document.querySelector('.number').textContent = '?';
   document.querySelector('.guess').value = '';
-  document.querySelector('.score').textContent = 20;
   i = 20;
+  document.querySelector('.score').textContent = i;
+  document.querySelector('body').style.backgroundColor = 'black';
   number = Math.round(Math.random() * 20);
 });
