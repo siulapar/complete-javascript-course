@@ -27,34 +27,56 @@ const playerScore = [player1Score, player2Score];
 
 let currentScore = 0;
 
+const activatePlayer = function () {
+  if (playerScore[0] <= 100 && playerScore[1] <= 100) {
+    for (let i = 0; i < player.length; i++) {
+      i === active
+        ? player[i].classList.add('player--active')
+        : player[i].classList.remove('player--active');
+    }
+    current0.textContent = 0;
+    current1.textContent = 0;
+    currentScore = 0;
+  }
+};
+
 const hold = function () {
-  playerScore[active] += currentScore;
-  score[active].textContent = playerScore[active];
+  if (playerScore[0] <= 100 && playerScore[1] <= 100) {
+    playerScore[active] += currentScore;
+    score[active].textContent = playerScore[active];
+    active ? (active = 0) : (active = 1);
+    activatePlayer();
+  }
 };
 
 const rollDice = function () {
-  let number = Math.floor(Math.random() * 6) + 1;
-  console.log(number);
-  dice.src = `dice-${number}.png`;
-  currentScore += number;
-  current[active].textContent = currentScore;
+  if (playerScore[0] <= 100 && playerScore[1] <= 100) {
+    let number = Math.floor(Math.random() * 6) + 1;
+    console.log(number);
+    dice.src = `dice-${number}.png`;
+    if (number === 1) {
+      active ? (active = 0) : (active = 1);
+      activatePlayer();
+    } else {
+      currentScore += number;
+      current[active].textContent = currentScore;
+      if (currentScore + playerScore[active] >= 100) {
+        playerScore[active] += currentScore;
+        score[active].textContent = playerScore[active];
+      }
+    }
+  }
 };
 
 const newGame = function () {
   score0.textContent = 0;
   score1.textContent = 0;
-  current0.textContent = 0;
-  current1.textContent = 0;
   player1Score = 0;
   player2Score = 0;
 
   let randNum = Math.floor(Math.random() * 2);
   active = randNum;
-  for (let i = 0; i < player.length; i++) {
-    i === active
-      ? player[i].classList.add('player--active')
-      : player[i].classList.remove('player--active');
-  }
+  activatePlayer();
 };
 
 btnNewGame.addEventListener('click', newGame);
