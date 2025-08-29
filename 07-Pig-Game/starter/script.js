@@ -23,12 +23,19 @@ let active;
 let player1Score = 0;
 let player2Score = 0;
 
-const playerScore = [player1Score, player2Score];
+let playerScore = [player1Score, player2Score];
 
 let currentScore = 0;
 
+const gameOver = function () {
+  console.log(playerScore[0], playerScore[1]);
+  return playerScore[0] > 99 || playerScore[1] > 99;
+};
+
 const activatePlayer = function () {
-  if (playerScore[0] <= 100 && playerScore[1] <= 100) {
+  console.log(player1Score, player2Score);
+  if (!gameOver()) {
+    console.log('Activate Player.');
     for (let i = 0; i < player.length; i++) {
       i === active
         ? player[i].classList.add('player--active')
@@ -41,7 +48,7 @@ const activatePlayer = function () {
 };
 
 const hold = function () {
-  if (playerScore[0] <= 100 && playerScore[1] <= 100) {
+  if (!gameOver()) {
     playerScore[active] += currentScore;
     score[active].textContent = playerScore[active];
     active ? (active = 0) : (active = 1);
@@ -50,8 +57,9 @@ const hold = function () {
 };
 
 const rollDice = function () {
-  if (playerScore[0] <= 100 && playerScore[1] <= 100) {
+  if (!gameOver()) {
     let number = Math.floor(Math.random() * 6) + 1;
+    number = 33;
     console.log(number);
     dice.src = `dice-${number}.png`;
     if (number === 1) {
@@ -69,10 +77,17 @@ const rollDice = function () {
 };
 
 const newGame = function () {
+  console.log('New Game.');
   score0.textContent = 0;
   score1.textContent = 0;
   player1Score = 0;
   player2Score = 0;
+  playerScore[0] = 0;
+  playerScore[1] = 0;
+
+  for (let cur of current) {
+    cur.textContent = 0;
+  }
 
   let randNum = Math.floor(Math.random() * 2);
   active = randNum;
