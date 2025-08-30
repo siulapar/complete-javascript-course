@@ -59,7 +59,6 @@ const hold = function () {
 const rollDice = function () {
   if (!gameOver()) {
     let number = Math.floor(Math.random() * 6) + 1;
-    number = 33;
     console.log(number);
     dice.src = `dice-${number}.png`;
     if (number === 1) {
