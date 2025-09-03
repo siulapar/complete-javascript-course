@@ -17,7 +17,7 @@ const player = [
 const score = [score0, score1];
 const current = [current0, current1];
 
-const dice = document.querySelector('.dice');
+const diceEl = document.querySelector('.dice');
 
 let active;
 let player1Score = 0;
@@ -65,9 +65,12 @@ const hold = function () {
 
 const rollDice = function () {
   if (!gameOver()) {
+    if (diceEl.classList.contains('hidden')) {
+      diceEl.classList.remove('hidden');
+    }
     let number = Math.floor(Math.random() * 6) + 1;
     console.log(number);
-    dice.src = `dice-${number}.png`;
+    diceEl.src = `dice-${number}.png`;
     if (number === 1) {
       active ? (active = 0) : (active = 1);
       activatePlayer();
@@ -94,6 +97,7 @@ const newGame = function () {
   playerScore[1] = 0;
   player[0].classList.remove('player--winner');
   player[1].classList.remove('player--winner');
+  diceEl.classList.add('hidden');
 
   for (let cur of current) {
     cur.textContent = 0;
