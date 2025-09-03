@@ -29,7 +29,7 @@ let playerScore = [player1Score, player2Score];
 let currentScore = 0;
 
 const gameOver = function () {
-  console.log(playerScore[0], playerScore[1]);
+  // console.log(playerScore[0], playerScore[1]);
   isOver = playerScore[0] > 99 || playerScore[1] > 99;
   if (isOver) {
     if (!player[active].classList.contains('player--winner')) {
@@ -40,7 +40,7 @@ const gameOver = function () {
 };
 
 const activatePlayer = function () {
-  console.log(player1Score, player2Score);
+  // console.log(player1Score, player2Score);
   if (!gameOver()) {
     console.log('Activate Player.');
     for (let i = 0; i < player.length; i++) {
