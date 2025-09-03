@@ -22,6 +22,7 @@ const dice = document.querySelector('.dice');
 let active;
 let player1Score = 0;
 let player2Score = 0;
+let isOver = false;
 
 let playerScore = [player1Score, player2Score];
 
@@ -29,7 +30,13 @@ let currentScore = 0;
 
 const gameOver = function () {
   console.log(playerScore[0], playerScore[1]);
-  return playerScore[0] > 99 || playerScore[1] > 99;
+  isOver = playerScore[0] > 99 || playerScore[1] > 99;
+  if (isOver) {
+    if (!player[active].classList.contains('player--winner')) {
+      player[active].classList.add('player--winner');
+    }
+  }
+  return isOver;
 };
 
 const activatePlayer = function () {
@@ -67,9 +74,10 @@ const rollDice = function () {
     } else {
       currentScore += number;
       current[active].textContent = currentScore;
-      if (currentScore + playerScore[active] >= 100) {
+      if (currentScore + playerScore[active] > 99) {
         playerScore[active] += currentScore;
         score[active].textContent = playerScore[active];
+        gameOver();
       }
     }
   }
@@ -77,12 +85,15 @@ const rollDice = function () {
 
 const newGame = function () {
   console.log('New Game.');
+  isOver = false;
   score0.textContent = 0;
   score1.textContent = 0;
   player1Score = 0;
   player2Score = 0;
   playerScore[0] = 0;
   playerScore[1] = 0;
+  player[0].classList.remove('player--winner');
+  player[1].classList.remove('player--winner');
 
   for (let cur of current) {
     cur.textContent = 0;
@@ -93,8 +104,19 @@ const newGame = function () {
   activatePlayer();
 };
 
+const KeyDown = function (e) {
+  // console.log(e);
+  if (e['key'] === 'r') {
+    rollDice();
+  }
+  if (e['key'] === 'h') {
+    hold();
+  }
+};
+
 btnNewGame.addEventListener('click', newGame);
 btnRollDice.addEventListener('click', rollDice);
 btnHold.addEventListener('click', hold);
+document.addEventListener('keypress', KeyDown);
 
 document.addEventListener('DOMContentLoaded', newGame);

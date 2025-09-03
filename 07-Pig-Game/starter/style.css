@@ -45,7 +45,8 @@ main {
   transition: all 0.75s;
 }
 
-* ELEMENTS */ .name {
+/* ELEMENTS */
+.name {
   position: relative;
   font-size: 4rem;
   text-transform: uppercase;
