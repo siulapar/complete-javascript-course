@@ -4,8 +4,6 @@ const btnRollDice = document.querySelector('.btn--roll');
 const btnNewGame = document.querySelector('.btn--new');
 const btnHold = document.querySelector('.btn--hold');
 
-// const score0 = document.querySelector('#score--0');
-// const score1 = document.querySelector('#score--1');
 const current0 = document.querySelector('#current--0');
 const current1 = document.querySelector('#current--1');
 
@@ -14,14 +12,9 @@ const player = [
   document.querySelector('.player--1'),
 ];
 
-// const score = [score0, score1];
-// const current = [current0, current1];
-
 const diceEl = document.querySelector('.dice');
 
 let active;
-// let player1Score = 0;
-// let player2Score = 0;
 let isOver = false;
 
 let playerScore = [0, 0];
@@ -32,6 +25,7 @@ const gameOver = function () {
   // console.log(playerScore[0], playerScore[1]);
   isOver = playerScore[0] > 99 || playerScore[1] > 99;
   if (isOver) {
+    diceEl.classList.add('hidden');
     if (!player[active].classList.contains('player--winner')) {
       player[active].classList.add('player--winner');
     }
@@ -39,19 +33,13 @@ const gameOver = function () {
   return isOver;
 };
 
-const activatePlayer = function () {
+const switchPlayer = function () {
+  active ? (active = 0) : (active = 1);
   console.log('Active', active);
   if (!gameOver()) {
     console.log('Activate Player.');
-    for (let i = 0; i < player.length; i++) {
-      i === active
-        ? document
-            .querySelector(`.player--${i}`)
-            .classList.add('player--active')
-        : document
-            .querySelector(`.player--${i}`)
-            .classList.remove('player--active');
-    }
+    player[0].classList.toggle('player--active');
+    player[1].classList.toggle('player--active');
     current0.textContent = 0;
     current1.textContent = 0;
     currentScore = 0;
@@ -64,8 +52,8 @@ const hold = function () {
     // score[active].textContent = playerScore[active];
     document.querySelector(`#score--${active}`).textContent =
       playerScore[active];
-    active ? (active = 0) : (active = 1);
-    activatePlayer();
+
+    switchPlayer();
   }
 };
 
@@ -78,8 +66,7 @@ const rollDice = function () {
     console.log(number);
     diceEl.src = `dice-${number}.png`;
     if (number === 1) {
-      active ? (active = 0) : (active = 1);
-      activatePlayer();
+      switchPlayer();
     } else {
       currentScore += number;
       // current[active].textContent = currentScore;
@@ -114,7 +101,8 @@ const newGame = function () {
 
   let randNum = Math.floor(Math.random() * 2);
   active = randNum;
-  activatePlayer();
+  player[randNum].classList.add('player--active');
+  player[1 - randNum].classList.remove('player--active');
 };
 
 const KeyDown = function (e) {
@@ -132,4 +120,4 @@ btnRollDice.addEventListener('click', rollDice);
 btnHold.addEventListener('click', hold);
 document.addEventListener('keypress', KeyDown);
 
-document.addEventListener('DOMContentLoaded', newGame);
+newGame();
