@@ -1,6 +1,6 @@
 'use strict';
 
-// Challenge #1
+
 
 const game = {
   team1: 'Bayern Munich',
@@ -43,34 +43,65 @@ const game = {
   },
 };
 
-const [players1, players2] = game.players
-console.log(players1, players2)
 
-const [gk, ...fieldPlayers] = game.players[0]
-console.log(gk)
-console.log(fieldPlayers)
-
-const allPlayers = [...game.players[0], ...game.players[1]]
-console.log(allPlayers)
-
-const playersFinal = [...game.players[0], 'Thiago', 'Coutinho', 'Perisic']
-console.log(playersFinal)
-
-const {team1, x:draw, team2} = game.odds
-console.log(team1, draw, team2)
-
-const printGoals = function (...players) {
-  for (const player of players) {
-    console.log(player)
-  }
-  console.log(players.length)
+// Code Challenge 2
+for (const [index, player] of game.scored.entries()) {
+  console.log(`Goal ${index + 1}: ${player}`);
 }
 
-printGoals('Yan', 'Zhong', 'Xuen')
-printGoals(...game.scored)
+const odds = Object.values(game.odds);
+let average = 0;
+for (const odd of odds) average += odd;
+average /= odds.length;
+console.log(average);
 
-team1 < team2 && console.log('Team 1 is more likely to win')
-team1 > team2 && console.log('Team 2 is more likely to win')
+for (const [team, odd] of Object.entries(game.odds)) {
+  const teamStr = team === 'x' ? 'draw' : `victory ${game[team]}`;
+  console.log(`Odd of ${teamStr}: ${odd}`);
+}
+
+console.log(Object.entries(game.scored));
+
+let scorers = {};
+for (const player of game.scored) {
+  scorers[player] ? (scorers[player] += 1) : (scorers[player] = 1);
+}
+
+console.log(scorers);
+
+
+// Code Challenge 1
+
+
+// Challenge #1
+// const [players1, players2] = game.players
+// console.log(players1, players2)
+
+// const [gk, ...fieldPlayers] = game.players[0]
+// console.log(gk)
+// console.log(fieldPlayers)
+
+// const allPlayers = [...game.players[0], ...game.players[1]]
+// console.log(allPlayers)
+
+// const playersFinal = [...game.players[0], 'Thiago', 'Coutinho', 'Perisic']
+// console.log(playersFinal)
+
+// const {team1, x:draw, team2} = game.odds
+// console.log(team1, draw, team2)
+
+// const printGoals = function (...players) {
+//   for (const player of players) {
+//     console.log(player)
+//   }
+//   console.log(`${players.length} goals were scored.`)
+// }
+
+// printGoals('Yan', 'Zhong', 'Xuen')
+// printGoals(...game.scored)
+
+// team1 < team2 && console.log('Team 1 is more likely to win')
+// team1 > team2 && console.log('Team 2 is more likely to win')
 
 // Data needed for a later exercise
 // const flights =
