@@ -87,3 +87,12 @@ poll.displayResults.call({answers: [5, 2, 3]}, 'array');
 poll.displayResults.call({answers: [5, 2, 3]}, 'string');
 poll.displayResults.call({answers: [1, 5, 3, 9, 6, 1]}, 'array');
 poll.displayResults.call({answers: [1, 5, 3, 9, 6, 1]}, 'string');
+
+
+(function () {
+  const header = document.querySelector('h1');
+  header.style.color = 'red';
+    document.body.addEventListener('click', function () {
+        header.style.color = 'blue';
+    });
+})();
