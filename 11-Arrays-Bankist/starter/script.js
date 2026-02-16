@@ -23,7 +23,7 @@ const account2 = {
 };
 
 const account3 = {
-  owner: 'Steven Thomas Williams',
+  owner: 'Wong Yih Suei',
   movements: [200, -200, 340, -300, -20, 50, 400, -460],
   interestRate: 0.7,
   pin: 3333,
@@ -31,7 +31,7 @@ const account3 = {
 };
 
 const account4 = {
-  owner: 'Sarah Smith',
+  owner: 'Yong Su San',
   movements: [430, 1000, 700, 50, 90],
   interestRate: 1,
   pin: 4444,
