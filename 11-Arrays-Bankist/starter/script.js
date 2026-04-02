@@ -297,43 +297,43 @@ console.log(movementsDescriptions);
 
 */
 
-const breeds = [
-  {
-    breed: 'German Shepherd',
-    averageWeight: 32,
-    activities: ['fetch', 'swimming'],
-  },
-  {
-    breed: 'Dalmatian',
-    averageWeight: 24,
-    activities: ['running', 'fetch', 'agility'],
-  },
-  {
-    breed: 'Labrador',
-    averageWeight: 28,
-    activities: ['swimming', 'fetch'],
-  },
-  {
-    breed: 'Beagle',
-    averageWeight: 12,
-    activities: ['digging', 'fetch'],
-  },
-  {
-    breed: 'Husky',
-    averageWeight: 26,
-    activities: ['running', 'agility', 'swimming'],
-  },
-  {
-    breed: 'Bulldog',
-    averageWeight: 36,
-    activities: ['sleeping'],
-  },
-  {
-    breed: 'Poodle',
-    averageWeight: 18,
-    activities: ['agility', 'fetch'],
-  },
-];
+// const breeds = [
+//   {
+//     breed: 'German Shepherd',
+//     averageWeight: 32,
+//     activities: ['fetch', 'swimming'],
+//   },
+//   {
+//     breed: 'Dalmatian',
+//     averageWeight: 24,
+//     activities: ['running', 'fetch', 'agility'],
+//   },
+//   {
+//     breed: 'Labrador',
+//     averageWeight: 28,
+//     activities: ['swimming', 'fetch'],
+//   },
+//   {
+//     breed: 'Beagle',
+//     averageWeight: 12,
+//     activities: ['digging', 'fetch'],
+//   },
+//   {
+//     breed: 'Husky',
+//     averageWeight: 26,
+//     activities: ['running', 'agility', 'swimming'],
+//   },
+//   {
+//     breed: 'Bulldog',
+//     averageWeight: 36,
+//     activities: ['sleeping'],
+//   },
+//   {
+//     breed: 'Poodle',
+//     averageWeight: 18,
+//     activities: ['agility', 'fetch'],
+//   },
+// ];
 
 /*
 This time, Julia and Kate are studying the activity levels of different dog breeds.
@@ -352,40 +352,118 @@ BONUS: What's the average weight of the heaviest breed that likes to fetch? HINT
 TEST DATA:
 */
 
-const huskyWeight = breeds.find(breed => breed.breed === 'Husky').averageWeight;
-console.log(huskyWeight);
+// const huskyWeight = breeds.find(breed => breed.breed === 'Husky').averageWeight;
+// console.log(huskyWeight);
 
-const dogBothActivities = breeds.find(
-  breed =>
-    breed.activities.includes('running') && breed.activities.includes('fetch')
-).breed;
-console.log(dogBothActivities);
+// const dogBothActivities = breeds.find(
+//   breed =>
+//     breed.activities.includes('running') && breed.activities.includes('fetch')
+// ).breed;
+// console.log(dogBothActivities);
 
-const allActivities = breeds.flatMap(breed => breed.activities);
-console.log(allActivities);
+// const allActivities = breeds.flatMap(breed => breed.activities);
+// console.log(allActivities);
 
-const uniqueActivities = [...new Set(allActivities)];
-console.log(uniqueActivities);
+// const uniqueActivities = [...new Set(allActivities)];
+// console.log(uniqueActivities);
 
-const swimmingAdjacent = [
-  ...new Set(
-    breeds
-      .filter(breed => breed.activities.includes('swimming'))
-      .flatMap(breed => breed.activities)
-      .filter(activity => activity !== 'swimming')
-  ),
+// const swimmingAdjacent = [
+//   ...new Set(
+//     breeds
+//       .filter(breed => breed.activities.includes('swimming'))
+//       .flatMap(breed => breed.activities)
+//       .filter(activity => activity !== 'swimming')
+//   ),
+// ];
+// console.log(swimmingAdjacent);
+
+// const allAbove10kg = breeds.every(breed => breed.averageWeight >= 10);
+// console.log(allAbove10kg);
+
+// const anyActiveBreed = breeds.some(breed => breed.activities.length >= 3);
+// console.log(anyActiveBreed);
+
+// const heaviestFetchBreedWeight = Math.max(
+//   ...breeds
+//     .filter(breed => breed.activities.includes('fetch'))
+//     .map(breed => breed.averageWeight)
+// );
+// console.log(heaviestFetchBreedWeight);
+
+const dogs = [
+  { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
+  { weight: 8, curFood: 200, owners: ['Matilda'] },
+  { weight: 13, curFood: 275, owners: ['Sarah', 'John', 'Leo'] },
+  { weight: 18, curFood: 244, owners: ['Joe'] },
+  { weight: 32, curFood: 340, owners: ['Michael'] },
 ];
-console.log(swimmingAdjacent);
 
-const allAbove10kg = breeds.every(breed => breed.averageWeight >= 10);
-console.log(allAbove10kg);
+const recommendedFood = dog => Math.trunc(dog.weight ** 0.75 * 28);
 
-const anyActiveBreed = breeds.some(breed => breed.activities.length >= 3);
-console.log(anyActiveBreed);
+dogs.forEach(dog => (dog.recommendedFood = recommendedFood(dog)));
+console.log(dogs);
 
-const heaviestFetchBreedWeight = Math.max(
-  ...breeds
-    .filter(breed => breed.activities.includes('fetch'))
-    .map(breed => breed.averageWeight)
+const dogSarah = dogs.find(dog => dog.owners.includes('Sarah'));
+console.log(dogSarah);
+console.log(
+  `Sarah's dog is eating ${
+    dogSarah.curFood > dogSarah.recommendedFood ? 'too much' : 'too little'
+  }`
 );
-console.log(heaviestFetchBreedWeight);
+
+const ownersEatTooMuch = dogs
+  .filter(dog => dog.curFood > dog.recommendedFood)
+  .flatMap(dog => dog.owners);
+console.log(ownersEatTooMuch);
+
+const ownersEatTooLittle = dogs
+  .filter(dog => dog.curFood < dog.recommendedFood)
+  .flatMap(dog => dog.owners);
+console.log(ownersEatTooLittle);
+
+console.log(`${ownersEatTooMuch.join(' and ')}'s dogs eat too much!`);
+console.log(`${ownersEatTooLittle.join(' and ')}'s dogs eat too little!`);
+
+console.log(dogs.some(dog => dog.curFood === dog.recommendedFood));
+
+const checkEatingOkay = dog =>
+  dog.curFood > dog.recommendedFood * 0.9 &&
+  dog.curFood < dog.recommendedFood * 1.1;
+
+console.log(dogs.some(checkEatingOkay));
+
+console.log(dogs.filter(checkEatingOkay));
+
+const groupEating = dogs.reduce(
+  (groups, dog) => {
+    const key = checkEatingOkay(dog) ? 'okay' : dog.curFood > dog.recommendedFood ? 'tooMuch' : 'tooLittle';
+    groups[key].push(dog);
+    return groups;
+  },
+  { okay: [], tooMuch: [], tooLittle: [] }
+);
+
+console.log(groupEating);
+
+const groupOwners = dogs.reduce((owners, dog) => {
+  if (checkEatingOkay(dog)) {
+    owners.okay.push(...dog.owners);
+  } else if (dog.curFood > dog.recommendedFood) {
+    owners.tooMuch.push(...dog.owners);
+  } else {
+    owners.tooLittle.push(...dog.owners);
+  }
+  return owners;
+}, { okay: [], tooMuch: [], tooLittle: [] });
+
+console.log(groupOwners);
+
+
+const groupOwners2 = Object.groupBy(dogs, dog => dog.owners.length);
+
+console.log(groupOwners2);
+
+const dogsSorted = dogs.toSorted((a, b) => a.recommendedFood - b.recommendedFood);
+console.log(dogsSorted);
+
+
